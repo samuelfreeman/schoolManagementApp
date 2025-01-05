@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input"
 
 
 
-export function ProfileForm() {
+export function LoginForm() {
   // ...
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,24 +48,23 @@ export function ProfileForm() {
             name="username"
             render={({ field }) => (
               <FormItem className="flex gap-y-7 items-center flex-col">
-                <FormLabel className="text-4xl">Sign Up</FormLabel>
+                <FormLabel className="text-4xl">Login</FormLabel>
+               
                 <FormControl>
-                  <Input placeholder="Username" {...field} />
-                </FormControl>
-                <FormControl>
+                    
                   <Input placeholder="Email" {...field} />
                 </FormControl>
                 <FormControl>
                   <Input placeholder="Password" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Already have an account ? <a href="/login" className="text-blue-700">Login</a>
+                  Don't have an account ? <a href="/signup" className="text-blue-700">Sign up</a>
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="px-20">Register</Button>
+          <Button type="submit" className="px-20">Login</Button>
         </form>
       </Form>
     </div>
