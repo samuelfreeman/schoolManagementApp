@@ -39,8 +39,8 @@ const navigation = {
       icon: "/student.svg"
     },
     {
-      label: "Guadians",
-      href: "/Guadians",
+      label: "Guardians",
+      href: "/Guardians",
       icon: "/guardian.svg"
     },
     {
