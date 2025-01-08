@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input"
 export function LoginForm() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const {toast} = useToast()
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,21 +34,21 @@ export function LoginForm() {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    
+
     const result = await dispatch(login(values))
     console.log("log form", result)
     if (result.meta.requestStatus.match("fulfilled")) {
-toast({
-  title: "Success",
-  description: (
-    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-      <code className="text-white">Logged in successfully</code>
-    </pre>
-  ),
-})
+      toast({
+        title: "Success",
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">Logged in successfully</code>
+          </pre>
+        ),
+      })
       navigate("/otp-verification")
     }
-    if(error){ 
+    if (error) {
 
       toast({
         title: "Error",
@@ -59,12 +59,12 @@ toast({
         ),
       })
     }
-      
-    }
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    
-  
+
+  }
+  // Do something with the form values.
+  // ✅ This will be type-safe and validated.
+
+
   return (
     <div className="bg-white  h-[503px] w-[544px] mr-32 rounded-lg" >
 
