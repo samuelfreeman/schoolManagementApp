@@ -15,7 +15,7 @@ export const login = createAsyncThunk(
             return data
         } catch (error: any) {
 
-            return rejectWithValue(error.response?.data?.message || "Login failed");
+            return rejectWithValue(error.response?.data?.error || "Login failed");
         }
     }
 );
@@ -30,7 +30,7 @@ export const signUp = createAsyncThunk(
             return response
         } catch (error: any) {
             console.log(error)
-            return rejectWithValue(error.response?.data?.message || "Sign up failed");
+            return rejectWithValue(error.response?.data?.error || "Sign up failed");
         }
     }
 );
@@ -43,7 +43,7 @@ export const otp = createAsyncThunk(
             
             return data
         } catch (error: any) {
-            return rejectWithValue(error.response?.data?.message || "Otp verification failed");
+            return rejectWithValue(error.response?.data?.error || "Otp verification failed");
         }
     }
 )

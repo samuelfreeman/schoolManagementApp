@@ -3,7 +3,7 @@ import { ProfileForm } from '@/components/ui/component/SignUpForm'
 
 const SignUpPage = () => {
     return (
-        <div className="bg-[url('/cool-background.svg')] w-full h-screen bg-cover  flex justify-center items-center bg-right-top">
+        <div className="bg-[url('/cool-background.svg')] w-full justify-center h-screen bg-cover   flex  items-center bg-right-top">
             <ProfileForm />
         </div>
     )

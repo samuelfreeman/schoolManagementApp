@@ -5,8 +5,8 @@ import { api } from "../interceptor";
 
 export const signUpService = async (credentials: Admin) => {
     const response = await api.post('/admin/signup', credentials)
-    localStorage.setItem("adminId", response.data.id)
-    console.log(response.data.id)
+    localStorage.setItem("token", response.data.addAdmin.token)
+    console.log(response.data.addAdmin.token)
     return response.data
 }
 export const loginService = async (credentials: Admin) => {

@@ -1,5 +1,7 @@
 import * as React from "react"
 // import { GalleryVerticalEnd } from "lucide-react"
+import { useAppDispatch } from "@/store/hooks"
+
 
 import {
   Sidebar,
@@ -55,8 +57,12 @@ const navigation = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navigate = useNavigate()
-  function handleClick() {
+  const dispatch = useAppDispatch()
+  async function handleClick() {
+    const result = dispatch({ type: "admin/logout" })
+    console.log(result)
     navigate("/login")
+
   }
   return (
     <Sidebar {...props} >
@@ -101,13 +107,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton asChild className="mt-16 w-full h-16">
               <div className="p-0">
 
-              <Button className="w-full h-full m-0 p-0 bg-transparent justify-start hover:bg-white hover:text-black" onClick={handleClick}>
-                <img src="/logout.svg" className="w-10 h-10" alt="" />
+                <Button className="w-full h-full m-0 p-0 bg-transparent justify-start hover:bg-white hover:text-black" onClick={handleClick}>
+                  <img src="/logout.svg" className="w-10 h-10" alt="" />
 
-                
+
                   {"Logout"}
-                
-              </Button>
+
+                </Button>
               </div>
             </SidebarMenuButton>
           </SidebarMenu>

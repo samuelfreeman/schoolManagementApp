@@ -54,6 +54,7 @@ const adminSlice = createSlice({
     reducers: {
         logout: (state) => {
             state.admin = null
+            localStorage.removeItem("token");
         },
     },
     extraReducers: (builder) => {

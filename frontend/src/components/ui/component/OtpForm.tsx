@@ -50,7 +50,7 @@ export function InputOTPForm() {
 
         if (result.meta.requestStatus.match("fulfilled")) {
             // Navigate to the dashboard or wherever you want to go after successful signup
-            navigate("/")
+            navigate("/dashboard")
 
             toast({
                 title: "Success",

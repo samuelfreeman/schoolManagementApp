@@ -47,14 +47,14 @@ export function LoginForm() {
         ),
       })
       navigate("/otp-verification")
-    }
-    if (error) {
+    }else{
+    
 
       toast({
         title: "Error",
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">Error logging in</code>
+            <code className="text-white">{result.payload}</code>
           </pre>
         ),
       })
@@ -66,7 +66,7 @@ export function LoginForm() {
 
 
   return (
-    <div className="bg-white  h-[503px] w-[544px] mr-32 rounded-lg" >
+    <div className="bg-white  min-h-[503px] w-[544px] m-5 lg:mr-32 lg:m-0 rounded-lg" >
 
 
       <Form {...form}>
@@ -110,7 +110,7 @@ export function LoginForm() {
 
 
           <Button type="submit" className="px-20">
-            {loading ? "Logining in ...." : "login"}
+            {loading ? "Logging in ...." : "login"}
           </Button>
         </form>
       </Form>

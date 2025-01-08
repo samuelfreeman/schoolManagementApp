@@ -25,7 +25,7 @@ import { useToast } from "@/hooks/use-toast"
 export function ProfileForm() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const {toast} = useToast()
+  const { toast } = useToast()
   const { loading, error } = useAppSelector((state) => state.admin)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,23 +51,23 @@ export function ProfileForm() {
           </pre>
         ),
       })
-            navigate("/")
-          }
-          if(error){ 
+      navigate("/dashboard")
+    }else{
+
       
-            toast({
-              title: "Error",
-              description: (
-                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                  <code className="text-white">Error Signing Up</code>
-                </pre>
-              ),
-            })
-          }
-        }
-            
+     toast({
+        title: "Error",
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{result.payload}</code>
+          </pre>
+        ),
+      })
+    }
+  }
+
   return (
-    <div className="bg-white  h-[503px] w-[544px] mr-32 rounded-lg" >
+    <div className="bg-white  min-h-[503px] w-[544px] m-10 lg:m-0 lg:mr-32 rounded-lg" >
 
 
       <Form {...form}>
