@@ -1,10 +1,13 @@
-import { signUpFormSchema as formSchema } from "@/validation/SignUpschema"
-
+import { loginFormSchema as formSchema } from "@/validation/SignUpschema"
+import { useNavigate } from "react-router-dom"
+import { login } from "@/api/slices/adminthunk"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+
 import {
   Form,
   FormControl,
@@ -16,25 +19,52 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-
-
-
-
 export function LoginForm() {
-  // ...
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const {toast} = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
+      password: ""
     },
   })
+  const { loading, error } = useAppSelector((state) => state.admin)
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    
+    const result = await dispatch(login(values))
+    console.log("log form", result)
+    if (result.meta.requestStatus.match("fulfilled")) {
+toast({
+  title: "Success",
+  description: (
+    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+      <code className="text-white">Logged in successfully</code>
+    </pre>
+  ),
+})
+      navigate("/otp-verification")
+    }
+    if(error){ 
+
+      toast({
+        title: "Error",
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">Error logging in</code>
+          </pre>
+        ),
+      })
+    }
+      
+    }
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
-  }
+    
+  
   return (
     <div className="bg-white  h-[503px] w-[544px] mr-32 rounded-lg" >
 
@@ -43,28 +73,45 @@ export function LoginForm() {
 
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8   flex justify-center items-center flex-col  p-10 " >
+          <FormLabel className="text-4xl text-center justify-center flex p-4">Login</FormLabel>
+          {error && <p className="error">{error}</p>}
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
-              <FormItem className="flex gap-y-7 items-center flex-col">
-                <FormLabel className="text-4xl">Login</FormLabel>
-               
+              <FormItem className="flex   flex-col">
+                <FormLabel className="text-md">Email</FormLabel>
                 <FormControl>
-                    
                   <Input placeholder="Email" {...field} />
                 </FormControl>
-                <FormControl>
-                  <Input placeholder="Password" {...field} />
-                </FormControl>
-                <FormDescription>
-                  Don't have an account ? <a href="/signup" className="text-blue-700">Sign up</a>
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="px-20">Login</Button>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="flex    flex-col">
+                <FormLabel className="text-md text-left">Password</FormLabel>
+                <FormControl>
+                  <Input placeholder="Password" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormDescription>
+            Don't have an account ? <a href="/signup" className="text-blue-700">Sign up</a>
+          </FormDescription>
+
+
+
+          <Button type="submit" className="px-20">
+            {loading ? "Logining in ...." : "login"}
+          </Button>
         </form>
       </Form>
     </div>

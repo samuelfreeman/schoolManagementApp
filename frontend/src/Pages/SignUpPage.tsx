@@ -1,5 +1,5 @@
 import { ProfileForm } from '@/components/ui/component/SignUpForm'
-import React from 'react'
+
 
 const SignUpPage = () => {
     return (
