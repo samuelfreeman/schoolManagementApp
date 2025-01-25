@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import adminSlice from '../api/slices/admin'
+import tutorSlice from '../api/slices/tutor'
+import studentSlice from '../api/slices/student'
 
 export const store = configureStore({
   reducer: {
-    
-    admin:adminSlice
-    
+
+    admin: adminSlice,
+    tutor: tutorSlice,
+    student: studentSlice
+
   },
 })
 

@@ -8,6 +8,8 @@ import LoginPage from './Pages/LoginPage'
 import { InputOTPForm } from './components/ui/component/OtpForm'
 
 import Dashboard from './Pages/DashboardPage'
+import Tutors from './components/Tutors'
+
 
 function App() {
 
@@ -16,13 +18,21 @@ function App() {
     <>
 
       <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/otp-verification" element={<InputOTPForm />} />
-        </Routes>
+
+
+
+            
+            <Routes>
+              <Route path="/" element={<Navigate to="/dashboard" />} />
+              
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/tutor" element={<Tutors />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/otp-verification" element={<InputOTPForm />} />
+            </Routes>
+        
+        
       </Router>
 
 
