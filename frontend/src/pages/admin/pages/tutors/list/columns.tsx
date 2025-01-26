@@ -43,6 +43,7 @@ export const columns = ({
         <ActionMenu
           id={tutor.id}
           resourceName="tutor"
+          hasView={false}
           onDelete={() => handleDelete(tutor.id)}
         />
       );
