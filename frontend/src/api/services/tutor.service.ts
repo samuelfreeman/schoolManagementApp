@@ -21,6 +21,10 @@ export const getAnalytics = async()=>{
     console.log(response)
     return response.data
 }
+export const deleteTutor = async(id:string)=>{
+    const response = await api.delete(`/tutors/delete/${id}`)
+    console.log(response)
+}
 
 
 // export const signUpService = async (credentials: Tutor) => {

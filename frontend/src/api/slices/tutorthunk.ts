@@ -1,6 +1,6 @@
 // api/student/thunk.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addTutor, getTutor, getAnalytics } from "../services/tutor.service";
+import { addTutor, getTutor, getAnalytics, deleteTutor } from "../services/tutor.service";
 import { Tutor } from "@/types/tutor";
 
 export const tutorSignUp = createAsyncThunk(
@@ -25,7 +25,7 @@ export const loadTutors = createAsyncThunk(
             return response
         } catch (error: any) {
             console.log(error)
-            return rejectWithValue(error.response?.data?.error || "Loading tutors failed")
+            return rejectWithValue(error.response?.data?.message || "Loading tutors failed")
         }
     }
 )
@@ -39,7 +39,22 @@ export const getTutorAnalytics = createAsyncThunk(
             return response
         } catch (error: any) {
             console.log(error)
-            return rejectWithValue(error.response?.data?.error || "Loading tutors failed")
+            return rejectWithValue(error.response?.data?.message || "Loading tutors failed")
+        }
+    }
+)
+
+
+export const removeTutor = createAsyncThunk(
+    "tutor/deleteTutor",
+    async (tutorId: string, { rejectWithValue }) => {
+        try {
+            const response = await deleteTutor(tutorId);
+            console.log(response)
+            return { tutor: { id: tutorId } };
+        } catch (error: any) {
+            console.log(error)
+            return rejectWithValue(error.response?.data?.message || "Loading tutors failed")
         }
     }
 )

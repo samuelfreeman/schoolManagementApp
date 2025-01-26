@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Dialog, DialogTitle, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { loadTutors, tutorSignUp } from "@/api/slices/tutorthunk";
+import {  tutorSignUp } from "@/api/slices/tutorthunk";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -57,7 +57,7 @@ export function AddTutorModal({
           </pre>
         ),
       });
-      dispatch(loadTutors());
+      
       // Notify parent component to update the tutor list
       // onAddTutor(values); // Pass the new tutor data
       onClose();
