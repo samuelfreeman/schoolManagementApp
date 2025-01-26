@@ -1,7 +1,14 @@
+<<<<<<< HEAD:frontend/src/archive/api/slices/tutor.ts
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Tutor } from "@/archive/types/tutor";
 import { tutorSignUp, loadTutors, getTutorAnalytics } from "./tutorthunk";
+=======
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { Tutor } from '@/types/tutor';
+import { tutorSignUp, loadTutors, getTutorAnalytics, removeTutor } from './tutorthunk';
+>>>>>>> 55cc512 (git push):frontend/src/api/slices/tutor.ts
 
 interface TutorState {
   tutors: Tutor[]; // Removed `null` option for simplicity
@@ -83,7 +90,17 @@ const tutorSlice = createSlice({
         }
       )
 
-      .addCase(getTutorAnalytics.rejected, setError);
+      .addCase(getTutorAnalytics.rejected, setError)
+      //  delete tutor
+      .addCase(removeTutor.pending, setLoading)
+      .addCase(
+        removeTutor.fulfilled,
+        (state, action: PayloadAction<{ tutor: Tutor }>) => {
+          state.loading = false;
+          state.tutors = state.tutors.filter((tutor: Tutor) => tutor.id !== action.payload.tutor.id);
+          state.error = null;
+        })
+      .addCase(removeTutor.rejected, setError)
   },
 });
 
