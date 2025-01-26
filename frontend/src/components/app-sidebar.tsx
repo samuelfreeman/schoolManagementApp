@@ -1,6 +1,6 @@
 import * as React from "react"
 // import { GalleryVerticalEnd } from "lucide-react"
-import { useAppDispatch } from "@/store/hooks"
+import { useAppDispatch } from "@/archive/store/hooks"
 
 
 import {
