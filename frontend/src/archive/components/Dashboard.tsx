@@ -53,6 +53,13 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { useNavigate } from "react-router-dom"
+<<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
+=======
+import Layout from "@/components/ui/component/Layout"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { StudentAnalyticsChart } from "@/components/ui/component/Chart"
+import { loadTotalStudents, totalPopulation } from "@/api/slices/studentThunk"
+>>>>>>> c5d3284 (conflict resolved):frontend/src/Pages/DashboardPage.tsx
 
 
 const imgs = ["/notification.svg", "/chat.svg", "user.svg"]
@@ -60,7 +67,16 @@ const imgs = ["/notification.svg", "/chat.svg", "user.svg"]
 export default function Dashboard() {
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
+<<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
   
+=======
+
+  const { analytics, loading } = useAppSelector((state) => state.tutor)
+  const { count } = useAppSelector((state) => state.student)
+  const { population } = useAppSelector((state) => state.student)
+  console.log("dashboard population", population)
+
+>>>>>>> c5d3284 (conflict resolved):frontend/src/Pages/DashboardPage.tsx
   useEffect(
     () => {
       if (!token) {
@@ -68,7 +84,14 @@ export default function Dashboard() {
 
       }
       else {
+<<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
         console.log("token available")
+=======
+        dispatch(getTutorAnalytics())
+        dispatch(loadTotalStudents())
+        dispatch(totalPopulation())
+
+>>>>>>> c5d3284 (conflict resolved):frontend/src/Pages/DashboardPage.tsx
       }
     },
     [token]
@@ -111,7 +134,11 @@ export default function Dashboard() {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
 <<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
+<<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
             <div className="aspect-video rounded-xl bg-muted/50">
+=======
+            <div className="lg:aspect-video rounded-xl bg-muted/50" >
+>>>>>>> c5d3284 (conflict resolved):frontend/src/Pages/DashboardPage.tsx
               <Card>
                 <CardHeader>
                   <CardTitle>
@@ -129,15 +156,60 @@ export default function Dashboard() {
                   )}
                 </CardContent>
               </Card>
+<<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
+=======
+            </div>
+            <div className="lg:aspect-video rounded-xl bg-muted/50" >
+              <Card>
+                <CardHeader>
+                  <CardTitle><p className="text-2xl">Total Students: </p></CardTitle>
+                  <CardDescription>Total number of Students</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {count !== null ? (<div className="flex flex-col justify-center items-center gap-4 p-4">
+
+
+                    <p className="text-xl">{count}</p>
+                  </div>
+                  ) : (
+                    <p>Loading analytics...</p>
+                  )}
+                </CardContent>
+
+              </Card>
+            </div>
+            <div className="lg:aspect-video rounded-xl bg-muted/50" >
+              <Card>
+                <CardHeader>
+                  <CardTitle><p className="text-2xl">Total Population: </p></CardTitle>
+                  <CardDescription>Total number of People in the school</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {population !== null ? (<div className="flex flex-col justify-center items-center gap-4 p-4">
+
+
+                    <p className="text-xl">{population}</p>
+                  </div>
+                  ) : (
+                    <p>Loading analytics...</p>
+                  )}
+                </CardContent>
+
+              </Card>
+>>>>>>> c5d3284 (conflict resolved):frontend/src/Pages/DashboardPage.tsx
             </div>
             <div className="aspect-video rounded-xl bg-muted/50">
               {loading ? "Loading..." : <StudentAnalyticsChart />}
             </div>
+<<<<<<< HEAD:frontend/src/archive/components/Dashboard.tsx
 =======
             <div className="aspect-video rounded-xl bg-muted/50" />
             <div className="aspect-video rounded-xl bg-muted/50" />
 >>>>>>> parent of 3dc7d4e (Included the analytics):frontend/src/Pages/DashboardPage.tsx
             <div className="aspect-video rounded-xl bg-muted/50" />
+=======
+
+>>>>>>> c5d3284 (conflict resolved):frontend/src/Pages/DashboardPage.tsx
           </div>
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
