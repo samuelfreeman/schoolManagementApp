@@ -78,8 +78,10 @@ export default function Tutors() {
                     </div>
                 </header>
 
-              
+              <div className="w-full">
+
                 <TutorTable />
+              </div>
 
 
 

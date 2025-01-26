@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { countStudentByGender } from "../services/student.service";
+import { countStudentByGender, totalPopulationAnalytics, totalStudents } from "../services/student.service";
 
 export const loadStudentAnalytics = createAsyncThunk(
   "student/loadAnalytics",
@@ -22,3 +22,31 @@ export const loadStudentAnalytics = createAsyncThunk(
     }
   }
 );
+
+export const loadTotalStudents = createAsyncThunk(
+  "student/totalStudents",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await totalStudents()
+      console.log("Total Students:",response)
+      return response.totalStudents
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response?.data?.error || "Failed to load student analytics")
+    }
+  }
+)
+
+export const totalPopulation = createAsyncThunk(
+  "student/totalPopulationAnalytics",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await totalPopulationAnalytics()
+      
+      return response
+    } catch (error: any) {
+      console.log(error)
+      return rejectWithValue(error.response?.data?.message || "Failed to load total population  analytics")
+    }
+  }
+)
