@@ -30,7 +30,7 @@ const navigation = {
     },
     {
       label: "Tutors",
-      href: "/tutor",
+      href: "/Tutors",
       icon: "/tutors.svg"
     },
     {
@@ -90,8 +90,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               navigation.main.map((item) => (
 
-                <SidebarMenuItem key={item.label} className="flex py-3 p-4 ">
-                  <SidebarMenuButton asChild className=" active:focus:bg-teal-400 " >
+                <SidebarMenuItem key={item.label} className="flex py-3 p-4">
+                  <SidebarMenuButton asChild >
                     <div>
                       <Label> <img src={item.icon} alt="" />  </Label>
 

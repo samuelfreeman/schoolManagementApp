@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-
+import  { useEffect } from "react"
+import { AppSidebar } from "@/components/app-sidebar"
 // import {
 //   Breadcrumb,
 //   BreadcrumbItem,
@@ -8,66 +8,43 @@ import { useEffect } from "react"
 //   BreadcrumbPage,
 //   BreadcrumbSeparator,
 // } from "@/components/ui/breadcrumb"
-
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
-import { getTutorAnalytics } from '@/api/slices/tutorthunk'
 import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
-
+  SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { useNavigate } from "react-router-dom"
-import Layout from "@/components/ui/component/Layout"
-import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { StudentAnalyticsChart } from "@/components/ui/component/Chart"
-import { loadTotalStudents, totalPopulation } from "@/api/slices/studentThunk"
 
 
 const imgs = ["/notification.svg", "/chat.svg", "user.svg"]
 
 export default function Dashboard() {
-  const dispatch = useAppDispatch()
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
 
   const { analytics, loading } = useAppSelector((state) => state.tutor)
-  const { count } = useAppSelector((state) => state.student)
-  const { population } = useAppSelector((state) => state.student)
-  console.log("dashboard population", population)
+
 
   useEffect(
     () => {
       if (!token) {
         navigate("/login")
+
       }
       else {
         dispatch(getTutorAnalytics())
-        dispatch(loadTotalStudents())
-        dispatch(totalPopulation())
+
 
       }
     },
-
-    [token, dispatch,]
-
+    [token]
   )
 
-
+ 
   return (
-
-    <Layout>
-
-
+    <SidebarProvider>
+      <AppSidebar  />
       <SidebarInset>
         <header className="flex  h-16 shrink-0 items-center gap-2 border-b">
           <div className="flex justify-between w-full items-center gap-2 px-3">
@@ -101,7 +78,7 @@ export default function Dashboard() {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="lg:aspect-video rounded-xl bg-muted/50" >
+            <div className="aspect-video rounded-xl bg-muted/50" >
               <Card>
                 <CardHeader>
                   <CardTitle><p className="text-2xl">Total Tutors: </p></CardTitle>
@@ -119,54 +96,18 @@ export default function Dashboard() {
                 </CardContent>
 
               </Card>
-            </div>
-            <div className="lg:aspect-video rounded-xl bg-muted/50" >
-              <Card>
-                <CardHeader>
-                  <CardTitle><p className="text-2xl">Total Students: </p></CardTitle>
-                  <CardDescription>Total number of Students</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {count !== null ? (<div className="flex flex-col justify-center items-center gap-4 p-4">
 
 
-                    <p className="text-xl">{count}</p>
-                  </div>
-                  ) : (
-                    <p>Loading analytics...</p>
-                  )}
-                </CardContent>
-
-              </Card>
-            </div>
-            <div className="lg:aspect-video rounded-xl bg-muted/50" >
-              <Card>
-                <CardHeader>
-                  <CardTitle><p className="text-2xl">Total Population: </p></CardTitle>
-                  <CardDescription>Total number of People in the school</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {population !== null ? (<div className="flex flex-col justify-center items-center gap-4 p-4">
-
-
-                    <p className="text-xl">{population}</p>
-                  </div>
-                  ) : (
-                    <p>Loading analytics...</p>
-                  )}
-                </CardContent>
-
-              </Card>
             </div>
             <div className="aspect-video rounded-xl bg-muted/50" >
               {loading ? "Loading..." : <StudentAnalyticsChart />}
 
             </div>
-
+            <div className="aspect-video rounded-xl bg-muted/50" />
           </div>
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
       </SidebarInset>
-    </Layout>
+    </SidebarProvider>
   )
 }
