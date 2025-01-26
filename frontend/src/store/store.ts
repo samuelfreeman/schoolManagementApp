@@ -3,9 +3,9 @@ import adminSlice from '../api/slices/admin'
 
 export const store = configureStore({
   reducer: {
-    
-    admin:adminSlice
-    
+
+    admin: adminSlice
+
   },
 })
 
