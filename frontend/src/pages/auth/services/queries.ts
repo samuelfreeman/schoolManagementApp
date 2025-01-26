@@ -42,7 +42,7 @@ export const useLoginUser = () => {
 
 export const useVerifyLogin = () => {
   const navigate = useNavigate();
-  const { clearEmail } = useVerifyUser();
+  // const { clearEmail } = useVerifyUser();
   const { setToken } = useAuthTokenStore();
   return useMutation({
     mutationFn: async (data: { email: string; otp: string }) => {
@@ -51,8 +51,6 @@ export const useVerifyLogin = () => {
         return response;
       } catch (error) {
         throw error as Error;
-      } finally {
-        clearEmail();
       }
     },
     onSuccess: (data) => {

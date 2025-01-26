@@ -14,11 +14,17 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { navigation } from "./nav-links";
+import { useVerifyUser } from "@/store/use-auth-store";
 
 export function AdminSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation();
+  // Test Logout - Remove this line
+  const { clearEmail } = useVerifyUser();
+  const logout = () => {
+    clearEmail();
+  };
 
   return (
     <Sidebar {...props}>
@@ -65,6 +71,7 @@ export function AdminSidebar({
       <div className="mt-auto p-4">
         <Button
           variant="ghost"
+          onClick={() => logout()}
           className="w-full justify-start space-x-3 px-3 py-2 h-auto font-normal hover:bg-accent hover:text-accent-foreground"
         >
           <img src="/logout.svg" alt="" className="h-5 w-5" />

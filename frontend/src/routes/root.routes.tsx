@@ -6,7 +6,7 @@ import {
   Route,
   createRoutesFromElements,
 } from "react-router-dom";
-import { VerifyUserOTPProtected } from "./protected.routes";
+import { AdminProtectedPage, VerifyUserOTPProtected } from "./protected.routes";
 
 const rootRoutes = createBrowserRouter(
   createRoutesFromElements(
@@ -81,109 +81,111 @@ const rootRoutes = createBrowserRouter(
           <Route path="*" element={<NotFound />} />
         </Route>
         {/* Admin Routes */}
-        <Route
-          path="admin"
-          lazy={async () => {
-            const { default: AdminLayout } = await import(
-              "@/pages/admin/pages/admin.layout"
-            );
-            return { Component: AdminLayout };
-          }}
-        >
-          {/* Dashboard */}
+        <Route element={<AdminProtectedPage />}>
           <Route
-            index
+            path="admin"
             lazy={async () => {
-              const { default: Dashboard } = await import(
-                "@/pages/admin/pages/dashboard/dashboard"
+              const { default: AdminLayout } = await import(
+                "@/pages/admin/pages/admin.layout"
               );
-              return { Component: Dashboard };
-            }}
-          />
-          {/* Admins */}
-          <Route
-            path="admins"
-            lazy={async () => {
-              const { default: AdminsLayout } = await import(
-                "@/pages/admin/pages/admins/index"
-              );
-              return { Component: AdminsLayout };
+              return { Component: AdminLayout };
             }}
           >
+            {/* Dashboard */}
             <Route
               index
               lazy={async () => {
-                const { default: Admins } = await import(
-                  "@/pages/admin/pages/admins/admins"
+                const { default: Dashboard } = await import(
+                  "@/pages/admin/pages/dashboard/dashboard"
                 );
-                return { Component: Admins };
+                return { Component: Dashboard };
               }}
             />
-            {/* Add */}
+            {/* Admins */}
             <Route
-              path="add"
+              path="admins"
               lazy={async () => {
-                const { default: AddAdmin } = await import(
-                  "@/pages/admin/pages/admins/add/add-admin"
+                const { default: AdminsLayout } = await import(
+                  "@/pages/admin/pages/admins/index"
                 );
-                return { Component: AddAdmin };
+                return { Component: AdminsLayout };
               }}
-            />
-            {/* Edit */}
+            >
+              <Route
+                index
+                lazy={async () => {
+                  const { default: Admins } = await import(
+                    "@/pages/admin/pages/admins/admins"
+                  );
+                  return { Component: Admins };
+                }}
+              />
+              {/* Add */}
+              <Route
+                path="add"
+                lazy={async () => {
+                  const { default: AddAdmin } = await import(
+                    "@/pages/admin/pages/admins/add/add-admin"
+                  );
+                  return { Component: AddAdmin };
+                }}
+              />
+              {/* Edit */}
+              <Route
+                path="edit/:id"
+                lazy={async () => {
+                  const { default: EditAdmin } = await import(
+                    "@/pages/admin/pages/admins/edit/edit-admin"
+                  );
+                  return { Component: EditAdmin };
+                }}
+              />
+            </Route>
+            {/* Tutors */}
             <Route
-              path="edit/:id"
+              path="tutors"
               lazy={async () => {
-                const { default: EditAdmin } = await import(
-                  "@/pages/admin/pages/admins/edit/edit-admin"
+                const { default: TutorsLayout } = await import(
+                  "@/pages/admin/pages/tutors/index"
                 );
-                return { Component: EditAdmin };
+                return { Component: TutorsLayout };
               }}
-            />
+            >
+              <Route
+                index
+                lazy={async () => {
+                  const { default: Tutors } = await import(
+                    "@/pages/admin/pages/tutors/tutors"
+                  );
+                  return { Component: Tutors };
+                }}
+              />
+              {/* Add */}
+              <Route
+                path="add"
+                lazy={async () => {
+                  const { default: AddTutor } = await import(
+                    "@/pages/admin/pages/tutors/add/add-tutor"
+                  );
+                  return { Component: AddTutor };
+                }}
+              />
+              {/* Edit*/}
+              <Route
+                path="edit/:id"
+                lazy={async () => {
+                  const { default: EditTutor } = await import(
+                    "@/pages/admin/pages/tutors/edit/edit-tutor"
+                  );
+                  return { Component: EditTutor };
+                }}
+              />
+            </Route>
+            {/* Students */}
+            {/* Classes */}
+            {/* Not Found */}
+            <Route path="*" element={<NotFound />} />
           </Route>
-          {/* Tutors */}
-          <Route
-            path="tutors"
-            lazy={async () => {
-              const { default: TutorsLayout } = await import(
-                "@/pages/admin/pages/tutors/index"
-              );
-              return { Component: TutorsLayout };
-            }}
-          >
-            <Route
-              index
-              lazy={async () => {
-                const { default: Tutors } = await import(
-                  "@/pages/admin/pages/tutors/tutors"
-                );
-                return { Component: Tutors };
-              }}
-            />
-            {/* Add */}
-            <Route
-              path="add"
-              lazy={async () => {
-                const { default: AddTutor } = await import(
-                  "@/pages/admin/pages/tutors/add/add-tutor"
-                );
-                return { Component: AddTutor };
-              }}
-            />
-            {/* Edit*/}
-            <Route
-              path="edit/:id"
-              lazy={async () => {
-                const { default: EditTutor } = await import(
-                  "@/pages/admin/pages/tutors/edit/edit-tutor"
-                );
-                return { Component: EditTutor };
-              }}
-            />
-          </Route>
-          {/* Students */}
-          {/* Classes */}
-          {/* Not Found */}
-          <Route path="*" element={<NotFound />} />
         </Route>
         {/* Not Found */}
         <Route path="*" element={<NotFound />} />
